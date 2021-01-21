@@ -6,14 +6,14 @@
 composer require fastleo/advertcontrol
 ```
 
-### Usage
+###Сбор данных
+```
+use Fastleo\AdvertControl\AdvertControl;
+AdvertControl::set($user_id)
+```
 
-Сбор данных
+###Отправка данных
 ```
-Fastleo\AdvertControl\AdvertControl::setClientData($user_id)
-```
-
-Отправка данных
-```
-Fastleo\AdvertControl\AdvertControl::setClientData($_POST)
+use Fastleo\AdvertControl\AdvertControl;
+Fastleo\AdvertControl\AdvertControl::send($_POST)
 ```
