@@ -1,0 +1,22 @@
+{
+    "name": "fastleo/advertcontrol",
+    "description": "Advert control",
+    "version": "0.1.0",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Roman Zakharov",
+            "email": "camanru@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.3",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fastleo\\AdvertControl\\": "src/"
+        }
+    }
+}
