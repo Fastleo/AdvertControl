@@ -21,7 +21,7 @@ class Control
      * @var string[]
      */
     protected static $prefixes = [
-        'utm_'
+        'utm_', 'regi'
     ];
 
     /**
