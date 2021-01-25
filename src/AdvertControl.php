@@ -13,6 +13,7 @@ class AdvertControl extends Control
     {
         $utm = array_merge($data, [
             'user_id' => $user_id,
+            'ip' => $_SERVER['HTTP_CLIENT_IP'] ?? $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'],
             'host' => $_SERVER['HTTP_HOST']
         ]);
         foreach ($_REQUEST as $k => $v) {
@@ -21,10 +22,12 @@ class AdvertControl extends Control
                 $utm[$k] = $v;
             }
         }
-        if (empty($_COOKIE[parent::$key_name])) {
-            setcookie(parent::$key_name, base64_encode(json_encode($utm)), time() + parent::$time);
+        if (empty($_COOKIE[parent::$name])) {
+            $cockies = json_decode(base64_decode($_COOKIE[parent::$name]), true);
+            $utm = array_merge($cockies, $utm);
         }
-        $_SESSION[parent::$key_name] = $utm;
+        setcookie(parent::$name, base64_encode(json_encode($utm)), time() + parent::$time);
+        $_SESSION[parent::$name] = $utm;
     }
 
     /**
@@ -33,11 +36,11 @@ class AdvertControl extends Control
      */
     public static function send(array $data = [])
     {
-        if (!empty($_COOKIE[parent::$key_name])) {
-            $data = array_merge($data, json_decode(base64_decode($_COOKIE[parent::$key_name]), true));
+        if (!empty($_COOKIE[parent::$name])) {
+            $data = array_merge($data, json_decode(base64_decode($_COOKIE[parent::$name]), true));
         }
-        if (!empty($_SESSION[parent::$key_name])) {
-            $data = array_merge($data, $_SESSION[parent::$key_name]);
+        if (!empty($_SESSION[parent::$name])) {
+            $data = array_merge($data, $_SESSION[parent::$name]);
         }
         @file_get_contents(parent::$url . '?' . http_build_query($data));
     }

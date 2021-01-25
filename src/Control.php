@@ -8,7 +8,7 @@ class Control
      * Тия ключа глобальных переменных
      * @var string
      */
-    public static $key_name = '_advert_control_client_data';
+    public static $name = '_advert_control_client_data';
 
     /**
      * URl для отправки данных
