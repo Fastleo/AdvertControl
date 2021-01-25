@@ -13,8 +13,8 @@ class AdvertControl extends Control
     {
         $utm = array_merge($data, [
             'user_id' => $user_id,
-            'ip' => $_SERVER['HTTP_CLIENT_IP'] ?? $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'],
-            'host' => $_SERVER['HTTP_HOST']
+            'host' => $_SERVER['HTTP_HOST'],
+            'ip' => $_SERVER['HTTP_CLIENT_IP'] ?? $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR']
         ]);
         foreach ($_REQUEST as $k => $v) {
             $prefix = substr($k, 0, 4);
@@ -23,8 +23,7 @@ class AdvertControl extends Control
             }
         }
         if (!empty($_COOKIE[parent::$name])) {
-            $cockies = json_decode(base64_decode($_COOKIE[parent::$name]), true);
-            $utm = array_merge($cockies, $utm);
+            $utm = array_merge(json_decode(base64_decode($_COOKIE[parent::$name]), true), $utm);
         }
         setcookie(parent::$name, base64_encode(json_encode($utm)), time() + parent::$time);
         $_SESSION[parent::$name] = $utm;
@@ -44,4 +43,19 @@ class AdvertControl extends Control
         }
         @file_get_contents(parent::$url . '?' . http_build_query($data));
     }
+
+    /**
+     * Очистка данных
+     */
+    public static function flush()
+    {
+        if (!empty($_COOKIE[parent::$name])) {
+            unset($_COOKIE[parent::$name]);
+        }
+        if (!empty($_SESSION[parent::$name])) {
+            unset($_SESSION[parent::$name]);
+        }
+    }
+
+
 }

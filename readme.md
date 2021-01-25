@@ -33,7 +33,7 @@ use Fastleo\AdvertControl\AdvertControl;
 
 public function handle(Request $request, Closure $next)
 {
-    AdvertControlLaravel::set($request, $user_id_from_crm);
+    AdvertControl::set($request, $user_id_from_crm);
     return $next($request);
 }
 ```
