@@ -18,7 +18,7 @@ class AdvertControlLaravel extends Control
     {
         $utm = [
             'user_id' => $user_id,
-            'user_ip' => $request->ip(),
+            'ip' => $request->ip(),
             'host' => $request->server('HTTP_HOST')
         ];
         foreach ($request->all() as $k => $v) {
