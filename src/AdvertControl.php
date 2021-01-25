@@ -22,7 +22,7 @@ class AdvertControl extends Control
                 $utm[$k] = $v;
             }
         }
-        if (empty($_COOKIE[parent::$name])) {
+        if (!empty($_COOKIE[parent::$name])) {
             $cockies = json_decode(base64_decode($_COOKIE[parent::$name]), true);
             $utm = array_merge($cockies, $utm);
         }
