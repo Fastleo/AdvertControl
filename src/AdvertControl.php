@@ -11,11 +11,11 @@ class AdvertControl extends Control
      */
     public static function set(int $user_id, array $data = [])
     {
-        $utm = array_merge($data, [
+        $utm = [
             'user_id' => $user_id,
             'host' => $_SERVER['HTTP_HOST'],
             'ip' => $_SERVER['HTTP_CLIENT_IP'] ?? $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR']
-        ]);
+        ];
         foreach ($_REQUEST as $k => $v) {
             $prefix = substr($k, 0, 4);
             if (in_array($k, parent::$keys) or in_array($prefix, parent::$prefixes)) {
@@ -50,12 +50,12 @@ class AdvertControl extends Control
     public static function flush()
     {
         if (!empty($_COOKIE[parent::$name])) {
+            setcookie(parent::$name, false);
             unset($_COOKIE[parent::$name]);
         }
         if (!empty($_SESSION[parent::$name])) {
+            $_SESSION[parent::$name] = [];
             unset($_SESSION[parent::$name]);
         }
     }
-
-
 }
