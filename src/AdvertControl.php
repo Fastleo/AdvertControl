@@ -11,11 +11,13 @@ class AdvertControl extends Control
     public static function set(int $user_id)
     {
         parent::$user_id = $user_id;
+        parent::$host = $_SERVER['HTTP_HOST'];
+        parent::$ip = $_SERVER['HTTP_CLIENT_IP'] ?? $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
 
         $utm = [
-            'user_id' => $user_id,
-            'host' => $_SERVER['HTTP_HOST'],
-            'ip' => $_SERVER['HTTP_CLIENT_IP'] ?? $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR']
+            'user_id' => parent::$user_id,
+            'host' => parent::$host,
+            'ip' => parent::$ip
         ];
         foreach ($_REQUEST as $k => $v) {
             $prefix = substr($k, 0, 4);
@@ -44,6 +46,12 @@ class AdvertControl extends Control
         }
         if (empty($data['user_id'])) {
             $data['user_id'] = parent::$user_id;
+        }
+        if (empty($data['host'])) {
+            $data['host'] = parent::$host;
+        }
+        if (empty($data['ip'])) {
+            $data['ip'] = parent::$ip;
         }
         @file_get_contents(parent::$url . '?' . http_build_query($data));
     }

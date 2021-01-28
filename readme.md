@@ -1,4 +1,5 @@
 # AdvertControl
+https://crm.g72.ru
 
 ## Installation
 
@@ -11,7 +12,7 @@ composer require fastleo/advertcontrol
 #### Set data
 ```
 use Fastleo\AdvertControl\AdvertControl;
-AdvertControl::set($user_id_from_crm)
+AdvertControl::set($user_id)
 ```
 
 #### Send data
@@ -33,7 +34,7 @@ use Fastleo\AdvertControl\AdvertControl;
 
 public function handle(Request $request, Closure $next)
 {
-    AdvertControl::set($request, $user_id_from_crm);
+    AdvertControl::set($request, $user_id);
     return $next($request);
 }
 ```

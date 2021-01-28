@@ -11,6 +11,18 @@ class Control
     public static $user_id;
 
     /**
+     * IP сервера
+     * @var string
+     */
+    public static $host;
+
+    /**
+     * IP клиента
+     * @var string
+     */
+    public static $ip;
+
+    /**
      * Тия ключа глобальных переменных
      * @var string
      */
