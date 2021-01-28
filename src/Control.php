@@ -5,6 +5,12 @@ namespace Fastleo\AdvertControl;
 class Control
 {
     /**
+     * ID пользователя
+     * @var int
+     */
+    public static $user_id;
+
+    /**
      * Тия ключа глобальных переменных
      * @var string
      */

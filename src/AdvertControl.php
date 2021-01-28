@@ -7,10 +7,11 @@ class AdvertControl extends Control
     /**
      * Сохранение данных для будущей отправки
      * @param int $user_id
-     * @param array $data
      */
-    public static function set(int $user_id, array $data = [])
+    public static function set(int $user_id)
     {
+        parent::$user_id = $user_id;
+
         $utm = [
             'user_id' => $user_id,
             'host' => $_SERVER['HTTP_HOST'],
@@ -40,6 +41,9 @@ class AdvertControl extends Control
         }
         if (!empty($_SESSION[parent::$name])) {
             $data = array_merge($data, $_SESSION[parent::$name]);
+        }
+        if (empty($data['user_id'])) {
+            $data['user_id'] = parent::$user_id;
         }
         @file_get_contents(parent::$url . '?' . http_build_query($data));
     }
